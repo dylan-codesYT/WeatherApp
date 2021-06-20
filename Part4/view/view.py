@@ -6,9 +6,12 @@ from tkinter.ttk import *
 
 class View(tkinter.Tk):
 
-    def __init__(self):
+    def __init__(self, controller):
         super().__init__()
         self.geometry("700x500")
+
+        self.controller = controller
+        self.bind('<Return>', self.controller.handleButtonSearch)
 
         #---- Variables ----
         self.varSearch = StringVar()
@@ -36,7 +39,7 @@ class View(tkinter.Tk):
         self.frameSearchBar = Frame(self.mainframe)
 
         comboSearch = Combobox(self.frameSearchBar, textvariable=self.varSearch)
-        buttonSearch = Button(self.frameSearchBar, text="Search")
+        buttonSearch = Button(self.frameSearchBar, text="Search", command=self.controller.handleButtonSearch)
 
         comboSearch.pack(padx=10, side=LEFT)
         buttonSearch.pack(side=RIGHT)
@@ -83,8 +86,10 @@ class View(tkinter.Tk):
     def _createFrameControls(self):
         self.frameControls = Frame(self.mainframe)
 
-        radioF = Radiobutton(self.frameControls, text='Fahrenheit', variable=self.varUnits, value=1)
-        radioC = Radiobutton(self.frameControls, text='Celcius', variable=self.varUnits, value=2)
+        radioF = Radiobutton(self.frameControls, text='Fahrenheit', variable=self.varUnits, value=1, command=self.controller.updateGUI)
+        radioC = Radiobutton(self.frameControls, text='Celcius', variable=self.varUnits, value=2, command=self.controller.updateGUI)
+
+        radioF.invoke()
 
         radioF.pack(side=LEFT, padx=7.5, pady=5)
         radioC.pack(side=RIGHT, padx=7.5, pady=5)

@@ -46,11 +46,11 @@ class Weather:
 
 
     def getCurrentTempF(self):
-        return self.getCurrentData('temp_f')
+        return self.getCurrentData('temp_f')+'\u00B0F'
 
 
     def getCurrentTempC(self):
-        return self.getCurrentData('temp_c')
+        return self.getCurrentData('temp_c')+'\u00B0C'
 
 
     def getConditionText(self):
@@ -63,7 +63,7 @@ class Weather:
 
 
     def getWindSpeedMPH(self):
-        return self.getCurrentData('wind_mph')
+        return self.getCurrentData('wind_mph')+' mph'
 
     
     def getWindDirection(self):
@@ -71,11 +71,11 @@ class Weather:
 
 
     def getFeelsLikeF(self):
-        return self.getCurrentData('feelslike_f')
+        return self.getCurrentData('feelslike_f')+'\u00B0F'
 
 
     def getFeelsLikeC(self):
-        return self.getCurrentData('feelslike_c')
+        return self.getCurrentData('feelslike_c')+'\u00B0C'
 
 
     #---- fetch ----
@@ -86,4 +86,4 @@ class Weather:
                 f'?key={API_KEY}&q={query}&aqi=no'
             self.weatherData = requests.get(url).json()
         except:
-            self.weatherData = {'error'}
+            self.weatherData = {'error': []}
