@@ -2,7 +2,7 @@ import tkinter
 from tkinter.constants import *
 from tkinter import StringVar, IntVar
 from tkinter.ttk import *
-  
+
 
 class View(tkinter.Tk):
 
@@ -38,10 +38,12 @@ class View(tkinter.Tk):
     def _createFrameSearchBar(self):
         self.frameSearchBar = Frame(self.mainframe)
 
-        comboSearch = Combobox(self.frameSearchBar, textvariable=self.varSearch)
+        self.comboSearch = Combobox(self.frameSearchBar, textvariable=self.varSearch)
         buttonSearch = Button(self.frameSearchBar, text="Search", command=self.controller.handleButtonSearch)
 
-        comboSearch.pack(padx=10, side=LEFT)
+        self.comboSearch.bind('<KeyRelease>', self.controller.handleComboSearch)
+
+        self.comboSearch.pack(padx=10, side=LEFT)
         buttonSearch.pack(side=RIGHT)
         self.frameSearchBar.pack()
 

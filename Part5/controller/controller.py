@@ -1,11 +1,14 @@
+from model.mapbox import MapBox
 from view.view import View
 from model.weather import Weather
+from model.mapbox import MapBox
 
 class Controller:
 
     def __init__(self) -> None:
         self.view = View(self)
         self.weather = Weather()
+        self.mapbox = MapBox()
 
         self.updateGUI()
 
@@ -36,5 +39,10 @@ class Controller:
             self.updateGUI()
 
 
-    def handleComboLocation(self):
-        pass
+    def handleComboSearch(self, event=None):
+        location = self.view.varSearch.get()
+        if len(location) > 3:
+            self.mapbox.updateQuery(location)
+            self.view.comboSearch.configure(values=self.mapbox.getNames())
+        else:
+            self.view.comboSearch.configure(values=[])
